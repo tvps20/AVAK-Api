@@ -6,7 +6,7 @@
 
 ---
 
-> Uma plataforma grátis para disseminação de conteúdo voltado à computação. Organizando aulas em módulos e permitindo inscrições as mesmas.
+Uma plataforma grátis para disseminação de conteúdo voltado à computação. Organizando aulas em módulos e permitindo inscrições as mesmas.
 
 ## Dependências
 
