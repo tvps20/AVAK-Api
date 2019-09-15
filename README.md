@@ -4,13 +4,9 @@
 
 ## Sobre o Projeto
 
----
-
 Uma plataforma grátis para disseminação de conteúdo voltado à computação. Organizando aulas em módulos e permitindo inscrições as mesmas.
 
 ## Dependências
-
----
 
 - Java JDK 1.8 ou maior
 - Maven
