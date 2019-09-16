@@ -1,12 +1,16 @@
 package com.santiago.avak.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 //Não vai mapear como tabela no banco
 @MappedSuperclass
@@ -16,8 +20,13 @@ public abstract class AbstractEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@CreationTimestamp
     private Date createdAt;
+	
+	@UpdateTimestamp
     private Date updatedAt;
+	
     private boolean ativo;
     
     // Construtores
