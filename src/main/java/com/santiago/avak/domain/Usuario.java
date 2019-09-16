@@ -2,11 +2,15 @@ package com.santiago.avak.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	private String email;
+	
+	@JsonIgnore
 	private String password;
 	private String nome;
 	
