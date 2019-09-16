@@ -15,10 +15,10 @@ public class Usuario extends AbstractEntity {
 	private String nome;
 	
 	// Construtores
-	public Usuario() {}
+	public Usuario() { super(); }
 	
-	public Usuario(String email, String password, String nome) {
-		super();
+	public Usuario(Long id, String email, String password, String nome) {
+		super(id);
 		this.email = email;
 		this.password = password;
 		this.nome = nome;
