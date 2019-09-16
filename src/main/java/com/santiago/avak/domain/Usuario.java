@@ -1,6 +1,10 @@
 package com.santiago.avak.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,6 +17,10 @@ public class Usuario extends AbstractEntity {
 	@JsonIgnore
 	private String password;
 	private String nome;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "professor")
+	private List<Curso> cursos = new ArrayList<>();
 	
 	// Construtores
 	public Usuario() { super(); }
@@ -47,5 +55,13 @@ public class Usuario extends AbstractEntity {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 }
