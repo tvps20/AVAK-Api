@@ -1,8 +1,14 @@
 package com.santiago.avak.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Curso extends AbstractEntity {
@@ -14,6 +20,10 @@ public class Curso extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "professor_id")
 	private Usuario professor;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "curso")
+	private List<Informacao> informacoes = new ArrayList<>();
 	
 	// Construtores
 	public Curso() {
@@ -45,5 +55,13 @@ public class Curso extends AbstractEntity {
 	}
 	public void setProfessor(Usuario professor) {
 		this.professor = professor;
+	}
+
+	public List<Informacao> getInformacoes() {
+		return informacoes;
+	}
+
+	public void setInformacoes(List<Informacao> informacoes) {
+		this.informacoes = informacoes;
 	}
 }
