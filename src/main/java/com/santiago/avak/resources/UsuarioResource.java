@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,11 @@ public class UsuarioResource {
 	@GetMapping
 	public ResponseEntity<List<Usuario>> listar() {
 		return ResponseEntity.ok().body(service.listAll());
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Usuario> findById(@PathVariable Long id){
+		Usuario user = this.service.findById(id);
+		return ResponseEntity.ok().body(user);
 	}
 }
