@@ -9,9 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.santiago.avak.domain.Curso;
 import com.santiago.avak.domain.Informacao;
+import com.santiago.avak.domain.Modulo;
 import com.santiago.avak.domain.Usuario;
 import com.santiago.avak.repositories.CursoRepository;
 import com.santiago.avak.repositories.InformacaoRepository;
+import com.santiago.avak.repositories.ModuloRepository;
 import com.santiago.avak.repositories.UsuarioRepository;
 
 @SpringBootApplication
@@ -23,6 +25,8 @@ public class AvakApplication implements CommandLineRunner {
 	private CursoRepository cursoRepository;
 	@Autowired
 	private InformacaoRepository informacaoRepository;
+	@Autowired
+	private ModuloRepository moduloRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AvakApplication.class, args);
@@ -44,9 +48,17 @@ public class AvakApplication implements CommandLineRunner {
 		
 		curso1.getInformacoes().addAll(Arrays.asList(info1, info2));
 		curso2.getInformacoes().add(info2);
+		
+		Modulo mod1 = new Modulo(null, "Configurando o Ambiente", "Configuração de ambiente", curso2);
+		Modulo mod2 = new Modulo(null, "Implementação do modelo conceitual", "Diagrama conceitual e implementação", curso2);
+		Modulo mod3 = new Modulo(null, "Apresentação do curso", "Apresentação do curso de banco de dados", curso1);
+		
+		curso1.getModulos().add(mod3);
+		curso2.getModulos().addAll(Arrays.asList(mod1, mod2));
 			
 		this.usuarioRepository.saveAll(Arrays.asList(user1, user2));
 		this.cursoRepository.saveAll(Arrays.asList(curso1, curso2));
 		this.informacaoRepository.saveAll(Arrays.asList(info1, info2, info3));
+		this.moduloRepository.saveAll(Arrays.asList(mod1, mod2, mod3));
 	}
 }

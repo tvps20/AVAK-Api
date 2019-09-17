@@ -25,6 +25,9 @@ public class Curso extends AbstractEntity {
 	@OneToMany(mappedBy = "curso")
 	private List<Informacao> informacoes = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "curso")
+	private List<Modulo> modulos = new ArrayList<>();
+	
 	// Construtores
 	public Curso() {
 		super();
@@ -63,5 +66,13 @@ public class Curso extends AbstractEntity {
 
 	public void setInformacoes(List<Informacao> informacoes) {
 		this.informacoes = informacoes;
+	}
+
+	public List<Modulo> getModulos() {
+		return modulos;
+	}
+
+	public void setModulos(List<Modulo> modulos) {
+		this.modulos = modulos;
 	}
 }
