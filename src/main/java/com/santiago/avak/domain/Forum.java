@@ -17,6 +17,7 @@ public class Forum extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
+	
 	private String mensagem;
 	private Integer tipo;
 	

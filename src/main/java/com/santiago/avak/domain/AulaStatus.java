@@ -9,24 +9,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class AulaStatus extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "aula_id")
 	private Aula aula;
+
 	private boolean completo;
 	private String resultado;
 	private Integer qtlCertas;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "inscricao_id")
 	@JsonIgnore
 	private Inscricao inscricao;
-	
+
 	// Construtores
 	public AulaStatus() {
 		super();
 	}
-	
+
 	public AulaStatus(Long id, Aula aula, boolean completo, String resultado, Integer qtlCertas, Inscricao inscricao) {
 		super(id);
 		this.aula = aula;

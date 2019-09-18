@@ -34,7 +34,7 @@ public interface IService<T extends AbstractEntity> {
      * @param entity Entitdade a ser salva
      * @return Nova ou atualizada entidade
      */
-    public T save(T entity);
+    public T insert(T entity);
 
     /**
      * Atualiza uma entidade
