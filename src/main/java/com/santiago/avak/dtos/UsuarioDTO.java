@@ -1,6 +1,5 @@
 package com.santiago.avak.dtos;
 
-import com.santiago.avak.domain.AbstractEntity;
 import com.santiago.avak.domain.Usuario;
 
 public class UsuarioDTO extends BaseDTO {
