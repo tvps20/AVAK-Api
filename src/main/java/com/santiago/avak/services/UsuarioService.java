@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.santiago.avak.domain.Usuario;
+import com.santiago.avak.dtos.UsuarioDTO;
 import com.santiago.avak.repositories.UsuarioRepository;
 
 
 @Service
-public class UsuarioService extends BaseService<Usuario> {
+public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 	
 	@Autowired	
 	public UsuarioService(UsuarioRepository repository) {
@@ -18,5 +19,10 @@ public class UsuarioService extends BaseService<Usuario> {
 	@Override
 	public Class<Usuario> getTClass() {
 		return Usuario.class;
+	}
+
+	@Override
+	public Usuario fromDTO(UsuarioDTO dto) {
+		return new Usuario(dto.getId(), dto.getEmail(), dto.getNome(), dto.getPassword());
 	}
 }

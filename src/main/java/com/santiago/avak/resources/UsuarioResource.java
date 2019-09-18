@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +32,10 @@ public class UsuarioResource {
 	private UsuarioService service;
 	
 	@GetMapping
-	public ResponseEntity<List<UsuarioDTO>> findAll() {
+	public ResponseEntity<List<Usuario>> findAll() {
 		List<Usuario> list = service.findAll();
-		List<UsuarioDTO> listDTO = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
+		//List<UsuarioDTO> listDTO = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("/page")
@@ -54,14 +56,16 @@ public class UsuarioResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Usuario obj){
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO objDTO){
+		Usuario obj = service.fromDTO(objDTO);
 		obj = this.service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody Usuario obj, @PathVariable Long id){
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDTO, @PathVariable Long id){
+		Usuario obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		obj = this.service.update(obj);
 		return ResponseEntity.noContent().build();

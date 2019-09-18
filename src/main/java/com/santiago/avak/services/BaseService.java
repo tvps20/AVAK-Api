@@ -9,11 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.santiago.avak.domain.AbstractEntity;
+import com.santiago.avak.dtos.BaseDTO;
 import com.santiago.avak.services.exceptions.DataIntegrityException;
 import com.santiago.avak.services.exceptions.ObjectNotFoundException;
 import com.santiago.avak.services.interfaces.IServiceCrud;
 
-public abstract class BaseService<T extends AbstractEntity> implements IServiceCrud<T> {
+public abstract class BaseService<T extends AbstractEntity, K extends BaseDTO> implements IServiceCrud<T, K> {
 
 	 /**
      * Repositorio interno

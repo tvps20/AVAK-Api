@@ -3,6 +3,7 @@ package com.santiago.avak.services.interfaces;
 import java.util.List;
 
 import com.santiago.avak.domain.AbstractEntity;
+import com.santiago.avak.dtos.BaseDTO;
 
 /**
  * Define como deve ser um Serviço para interagir com a base de dados e com as Entidades
@@ -11,7 +12,7 @@ import com.santiago.avak.domain.AbstractEntity;
  * @param <T> Entidade relacionada ao repositorio
  * @author Santiago Brothers
  */
-public interface IServiceCrud<T extends AbstractEntity> {
+public interface IServiceCrud<T extends AbstractEntity, K extends BaseDTO> extends IMapperToEntity<K, T> {
 	
 	 /**
      * Recupera todas as entidade da base de dados
