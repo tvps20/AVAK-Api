@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.santiago.avak.domain.Curso;
-import com.santiago.avak.services.CursoService;
+import com.santiago.avak.domain.Aula;
+import com.santiago.avak.services.AulaService;
 
 @RestController
-@RequestMapping("/cursos")
-public class CursoResource {
+@RequestMapping("/aulas")
+public class AulaResource {
 	
 	@Autowired
-	private CursoService service;
+	private AulaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Curso>> listar() {
+	public ResponseEntity<List<Aula>> listar() {
 		return ResponseEntity.ok().body(service.listAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Curso> findById(@PathVariable Long id){
-		Curso curso = this.service.findById(id);
-		return ResponseEntity.ok().body(curso);
+	public ResponseEntity<Aula> findById(@PathVariable Long id){
+		Aula aula = this.service.findById(id);
+		return ResponseEntity.ok().body(aula);
 	}
 }
