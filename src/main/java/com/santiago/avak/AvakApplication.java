@@ -9,11 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.santiago.avak.domain.Aula;
 import com.santiago.avak.domain.Curso;
+import com.santiago.avak.domain.Forum;
 import com.santiago.avak.domain.Informacao;
 import com.santiago.avak.domain.Modulo;
 import com.santiago.avak.domain.Usuario;
+import com.santiago.avak.domain.enuns.TipoUsuario;
 import com.santiago.avak.repositories.AulaRepository;
 import com.santiago.avak.repositories.CursoRepository;
+import com.santiago.avak.repositories.ForumRepository;
 import com.santiago.avak.repositories.InformacaoRepository;
 import com.santiago.avak.repositories.ModuloRepository;
 import com.santiago.avak.repositories.UsuarioRepository;
@@ -31,6 +34,8 @@ public class AvakApplication implements CommandLineRunner {
 	private ModuloRepository moduloRepository;
 	@Autowired
 	private AulaRepository aulaRepository;
+	@Autowired
+	private ForumRepository forumRepository; 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AvakApplication.class, args);
@@ -65,10 +70,14 @@ public class AvakApplication implements CommandLineRunner {
 	
 		mod2.getAulas().addAll(Arrays.asList(aula1, aula2));
 		
+		Forum forum1 = new Forum(null, user1, "Galera aula hoje vai ser boa", aula1, TipoUsuario.PROFESSOR);
+		Forum forum2 = new Forum(null, user2, "Tenho uma duvida", aula1, TipoUsuario.ALUNO);
+		
 		this.usuarioRepository.saveAll(Arrays.asList(user1, user2));
 		this.cursoRepository.saveAll(Arrays.asList(curso1, curso2));
 		this.informacaoRepository.saveAll(Arrays.asList(info1, info2, info3));
 		this.moduloRepository.saveAll(Arrays.asList(mod1, mod2, mod3));
 		this.aulaRepository.saveAll(Arrays.asList(aula1, aula2));
+		this.forumRepository.saveAll(Arrays.asList(forum1, forum2));
 	}
 }

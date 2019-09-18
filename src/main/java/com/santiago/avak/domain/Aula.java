@@ -1,8 +1,12 @@
 package com.santiago.avak.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,10 +24,15 @@ public class Aula extends AbstractEntity {
 	@JsonIgnore
 	private Modulo modulo;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "aula")
+	private List<Forum> foruns = new ArrayList<>();
+	
 	// Construtores
 	public Aula() {
 		super();
 	}
+	
 	public Aula(Long id, String nome, String descricao, String video, String atividade, Modulo modulo) {
 		super(id);
 		this.nome = nome;
@@ -72,5 +81,13 @@ public class Aula extends AbstractEntity {
 	
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
+	}
+	
+	public List<Forum> getForuns() {
+		return foruns;
+	}
+	
+	public void setForuns(List<Forum> foruns) {
+		this.foruns = foruns;
 	}
 }
