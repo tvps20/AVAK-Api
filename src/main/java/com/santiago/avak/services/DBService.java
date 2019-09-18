@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.santiago.avak.domain.Aula;
+import com.santiago.avak.domain.AulaStatus;
 import com.santiago.avak.domain.Curso;
 import com.santiago.avak.domain.Forum;
 import com.santiago.avak.domain.Informacao;
@@ -14,6 +15,7 @@ import com.santiago.avak.domain.Modulo;
 import com.santiago.avak.domain.Usuario;
 import com.santiago.avak.domain.enuns.TipoUsuario;
 import com.santiago.avak.repositories.AulaRepository;
+import com.santiago.avak.repositories.AulaStatusRepository;
 import com.santiago.avak.repositories.CursoRepository;
 import com.santiago.avak.repositories.ForumRepository;
 import com.santiago.avak.repositories.InformacaoRepository;
@@ -38,6 +40,8 @@ public class DBService {
 	private ForumRepository forumRepository; 
 	@Autowired
 	private InscricaoRepository inscricaoRepository;
+	@Autowired
+	private AulaStatusRepository aulaStatusRepository;
 	
 	public void instantiateTestDatabase() {
 		Usuario user1 = new Usuario(null, "thiago@email.com", "Thiago", "123");
@@ -79,6 +83,11 @@ public class DBService {
 		curso1.getInscricoes().add(insc1);
 		curso2.getInscricoes().add(insc2);
 		
+		AulaStatus aulaStatus1 = new AulaStatus(null, aula1, true, "Se deu bem", 8, insc2);
+		AulaStatus aulaStatus2 = new AulaStatus(null, aula2, false, "Ainda não terminou", 5, insc2);
+		
+		insc2.getStatusAulas().addAll(Arrays.asList(aulaStatus1, aulaStatus2));
+		
 		this.usuarioRepository.saveAll(Arrays.asList(user1, user2));
 		this.cursoRepository.saveAll(Arrays.asList(curso1, curso2));
 		this.informacaoRepository.saveAll(Arrays.asList(info1, info2, info3));
@@ -86,5 +95,6 @@ public class DBService {
 		this.aulaRepository.saveAll(Arrays.asList(aula1, aula2));
 		this.forumRepository.saveAll(Arrays.asList(forum1, forum2));
 		this.inscricaoRepository.saveAll(Arrays.asList(insc1, insc2));
+		this.aulaStatusRepository.saveAll(Arrays.asList(aulaStatus1, aulaStatus2));
 	}
 }

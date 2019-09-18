@@ -1,8 +1,12 @@
 package com.santiago.avak.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.santiago.avak.domain.enuns.TipoUsuario;
 
@@ -19,6 +23,9 @@ public class Inscricao extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
+	
+	@OneToMany(mappedBy = "inscricao")
+	private List<AulaStatus> statusAulas = new ArrayList<>();
 	
 	// Construtores
 	public Inscricao() {
@@ -64,5 +71,13 @@ public class Inscricao extends AbstractEntity {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+
+	public List<AulaStatus> getStatusAulas() {
+		return statusAulas;
+	}
+
+	public void setStatusAulas(List<AulaStatus> statusAulas) {
+		this.statusAulas = statusAulas;
 	}
 }
