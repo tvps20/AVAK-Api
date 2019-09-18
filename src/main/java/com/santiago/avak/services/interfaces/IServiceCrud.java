@@ -18,7 +18,7 @@ public interface IServiceCrud<T extends AbstractEntity> {
      *
      * @return Uma lista com todas as entidades
      */
-    public List<T> listAll();
+    public List<T> findAll();
 
     /**
      * Recupera uma entidade da base de dados

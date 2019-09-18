@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.santiago.avak.domain.AbstractEntity;
@@ -28,8 +31,22 @@ public abstract class BaseService<T extends AbstractEntity> implements IServiceC
      * @return Lista com todos os elementos da base de dados
      */
     @Override
-    public List<T> listAll() {
+    public List<T> findAll() {
         return this.repository.findAll();
+    }
+    
+    /**
+     * Recupera todas as entidades da base de dados de forma paginada.
+     * @param page pagina atual
+     * @param linesPerPage quatidade de elementos por pagina
+     * @param orderBy campo pelo qual sera feita a ordenação
+     * @param direction Direção pelo qual os elementos serão retornados, crescente ou decrescente.
+     * @return
+     */
+    // TODO: Corrigir problema de busca pela direção
+    public Page<T> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+    	PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+    	return repository.findAll(pageRequest);
     }
 
     /**

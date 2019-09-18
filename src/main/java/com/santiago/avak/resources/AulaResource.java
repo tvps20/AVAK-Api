@@ -21,7 +21,7 @@ public class AulaResource {
 	
 	@GetMapping
 	public ResponseEntity<List<Aula>> listar() {
-		return ResponseEntity.ok().body(service.listAll());
+		return ResponseEntity.ok().body(service.findAll());
 	}
 	
 	@GetMapping("/{id}")
