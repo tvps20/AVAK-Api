@@ -2,6 +2,8 @@ package com.santiago.avak.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.santiago.avak.domain.Usuario;
+import com.santiago.avak.dtos.UsuarioDTO;
 import com.santiago.avak.services.UsuarioService;
 
 @RestController
@@ -26,8 +29,10 @@ public class UsuarioResource {
 	private UsuarioService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> listar() {
-		return ResponseEntity.ok().body(service.listAll());
+	public ResponseEntity<List<UsuarioDTO>> listar() {
+		List<Usuario> list = service.listAll();
+		List<UsuarioDTO> listDTO = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@GetMapping("/{id}")
