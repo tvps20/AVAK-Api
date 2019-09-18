@@ -13,10 +13,10 @@ public class Usuario extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	private String email;
+	private String nome;
 	
 	@JsonIgnore
 	private String password;
-	private String nome;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "professor")

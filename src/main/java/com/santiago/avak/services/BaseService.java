@@ -3,9 +3,11 @@ package com.santiago.avak.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.santiago.avak.domain.AbstractEntity;
+import com.santiago.avak.services.exceptions.DataIntegrityException;
 import com.santiago.avak.services.exceptions.ObjectNotFoundException;
 import com.santiago.avak.services.interfaces.IService;
 
@@ -50,7 +52,8 @@ public abstract class BaseService<T extends AbstractEntity> implements IService<
      * @return Entidade T
      */
     @Override
-    public T save(T entity) {
+    public T insert(T entity) {
+    	entity.setId(null);
         return this.repository.save(entity);
     }
 
@@ -62,6 +65,8 @@ public abstract class BaseService<T extends AbstractEntity> implements IService<
      */
     @Override
     public T update(T entity) {
+    	T obj = this.findById(entity.getId());
+    	entity.setCreatedAt(obj.getCreatedAt());
         return this.repository.save(entity);
     }
 
@@ -72,8 +77,12 @@ public abstract class BaseService<T extends AbstractEntity> implements IService<
      */
     @Override
     public void delete(Long id) {
-
-        this.repository.deleteById(id);
+    	this.findById(id);
+    	try {
+    		this.repository.deleteById(id);
+    	}catch (DataIntegrityViolationException ex) {
+    		throw new DataIntegrityException("Não é possível excluir um objeto que possui referências.");
+		} 
     }
     
     /**
