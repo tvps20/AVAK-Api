@@ -29,7 +29,7 @@ public class Usuario extends AbstractEntity {
 	// Construtores
 	public Usuario() { super(); }
 	
-	public Usuario(Long id, String email, String password, String nome) {
+	public Usuario(Long id, String email, String nome, String password) {
 		super(id);
 		this.email = email;
 		this.password = password;

@@ -11,7 +11,7 @@ import com.santiago.avak.domain.AbstractEntity;
  * @param <T> Entidade relacionada ao repositorio
  * @author Santiago Brothers
  */
-public interface IService<T extends AbstractEntity> {
+public interface IServiceCrud<T extends AbstractEntity> {
 	
 	 /**
      * Recupera todas as entidade da base de dados
