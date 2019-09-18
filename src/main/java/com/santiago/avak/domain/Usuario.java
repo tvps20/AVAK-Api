@@ -22,6 +22,10 @@ public class Usuario extends AbstractEntity {
 	@OneToMany(mappedBy = "professor")
 	private List<Curso> cursos = new ArrayList<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "aluno")
+	private List<Inscricao> inscricoes = new ArrayList<>();
+	
 	// Construtores
 	public Usuario() { super(); }
 	
@@ -63,5 +67,13 @@ public class Usuario extends AbstractEntity {
 
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
+	}
+
+	public List<Inscricao> getInscricoes() {
+		return inscricoes;
+	}
+
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
 	}
 }

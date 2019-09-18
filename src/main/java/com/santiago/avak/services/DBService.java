@@ -9,6 +9,7 @@ import com.santiago.avak.domain.Aula;
 import com.santiago.avak.domain.Curso;
 import com.santiago.avak.domain.Forum;
 import com.santiago.avak.domain.Informacao;
+import com.santiago.avak.domain.Inscricao;
 import com.santiago.avak.domain.Modulo;
 import com.santiago.avak.domain.Usuario;
 import com.santiago.avak.domain.enuns.TipoUsuario;
@@ -16,6 +17,7 @@ import com.santiago.avak.repositories.AulaRepository;
 import com.santiago.avak.repositories.CursoRepository;
 import com.santiago.avak.repositories.ForumRepository;
 import com.santiago.avak.repositories.InformacaoRepository;
+import com.santiago.avak.repositories.InscricaoRepository;
 import com.santiago.avak.repositories.ModuloRepository;
 import com.santiago.avak.repositories.UsuarioRepository;
 
@@ -34,6 +36,8 @@ public class DBService {
 	private AulaRepository aulaRepository;
 	@Autowired
 	private ForumRepository forumRepository; 
+	@Autowired
+	private InscricaoRepository inscricaoRepository;
 	
 	public void instantiateTestDatabase() {
 		Usuario user1 = new Usuario(null, "thiago@email.com", "Thiago", "123");
@@ -66,11 +70,21 @@ public class DBService {
 		Forum forum1 = new Forum(null, user1, "Galera aula hoje vai ser boa", aula1, TipoUsuario.PROFESSOR);
 		Forum forum2 = new Forum(null, user2, "Tenho uma duvida", aula1, TipoUsuario.ALUNO);
 		
+		aula1.getForuns().addAll(Arrays.asList(forum1, forum2));
+		
+		Inscricao insc1 = new Inscricao(null, user2, false, TipoUsuario.ALUNO, curso1);
+		Inscricao insc2 = new Inscricao(null, user2, false, TipoUsuario.ALUNO, curso2);
+		
+		user2.getInscricoes().addAll(Arrays.asList(insc1, insc2));
+		curso1.getInscricoes().add(insc1);
+		curso2.getInscricoes().add(insc2);
+		
 		this.usuarioRepository.saveAll(Arrays.asList(user1, user2));
 		this.cursoRepository.saveAll(Arrays.asList(curso1, curso2));
 		this.informacaoRepository.saveAll(Arrays.asList(info1, info2, info3));
 		this.moduloRepository.saveAll(Arrays.asList(mod1, mod2, mod3));
 		this.aulaRepository.saveAll(Arrays.asList(aula1, aula2));
 		this.forumRepository.saveAll(Arrays.asList(forum1, forum2));
+		this.inscricaoRepository.saveAll(Arrays.asList(insc1, insc2));
 	}
 }
