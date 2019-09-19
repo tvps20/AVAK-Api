@@ -1,15 +1,14 @@
 package com.santiago.avak.dtos;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.santiago.avak.domain.Usuario;
-import com.santiago.avak.services.validation.UsuarioInsert;
+import com.santiago.avak.services.validation.UsuarioValidator;
 
-@UsuarioInsert
+@UsuarioValidator
 public class UsuarioDTO extends BaseDTO {
 	private static final long serialVersionUID = 1L;
 	
