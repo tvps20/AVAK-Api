@@ -31,7 +31,7 @@ public class Forum extends AbstractEntity {
 		this.usuario = usuario;
 		this.mensagem = mensagem;
 		this.aula = aula;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
 	// Gets e Sets

@@ -25,4 +25,10 @@ public class InformacaoService extends BaseService<Informacao, InformacaoDTO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateData(Informacao newObj, Informacao obj) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -25,4 +25,10 @@ public class CursoService extends BaseService<Curso, CursoDTO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateData(Curso newObj, Curso obj) {
+		// TODO Auto-generated method stub
+		
+	}
 }

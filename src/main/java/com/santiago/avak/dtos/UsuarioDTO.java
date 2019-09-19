@@ -1,5 +1,6 @@
 package com.santiago.avak.dtos;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -10,6 +11,7 @@ public class UsuarioDTO extends BaseDTO {
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "email inválido")
 	private String email;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")

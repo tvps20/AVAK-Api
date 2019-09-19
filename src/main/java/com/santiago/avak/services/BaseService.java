@@ -82,9 +82,9 @@ public abstract class BaseService<T extends AbstractEntity, K extends BaseDTO> i
      */
     @Override
     public T update(T entity) {
-    	T obj = this.findById(entity.getId());
-    	entity.setCreatedAt(obj.getCreatedAt());
-        return this.repository.save(entity);
+    	T newObj = this.findById(entity.getId());
+    	this.updateData(newObj, entity);
+        return this.repository.save(newObj);
     }
 
     /**
@@ -98,12 +98,21 @@ public abstract class BaseService<T extends AbstractEntity, K extends BaseDTO> i
     	try {
     		this.repository.deleteById(id);
     	}catch (DataIntegrityViolationException ex) {
-    		throw new DataIntegrityException("Não é possível excluir um objeto que possui referências.");
+    		throw new DataIntegrityException("Não é possível excluir um objeto que possui entidades relacionadas.");
 		} 
     }
     
     /**
+     * Atualiza o objeto do banco de acordo com as novas informações passadas pelo outro objeto
+     * 
+     * @param newObj Objeto vindo do banco de dados a ser atualizado
+     * @param obj Objeto com informações a ser passadas para o newObj
+     */
+    public abstract void updateData(T newObj, T obj);
+    
+    /**
      * Método para obter o nome da classe
+     * 
      * @return uma instancia da classe generica do tipo T
      */
     public abstract Class<T> getTClass();

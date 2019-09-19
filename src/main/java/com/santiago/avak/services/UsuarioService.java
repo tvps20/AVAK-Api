@@ -25,4 +25,11 @@ public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 	public Usuario fromDTO(UsuarioDTO dto) {
 		return new Usuario(dto.getId(), dto.getEmail(), dto.getNome(), dto.getPassword());
 	}
+
+	@Override
+	public void updateData(Usuario newObj, Usuario obj) {
+		newObj.setEmail(obj.getEmail());
+		newObj.setPassword(obj.getPassword());
+		newObj.setNome(obj.getNome());
+	}
 }

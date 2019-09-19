@@ -37,7 +37,7 @@ public class Inscricao extends AbstractEntity {
 		super(id);
 		this.aluno = aluno;
 		this.completo = completo;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.curso = curso;
 	}
 

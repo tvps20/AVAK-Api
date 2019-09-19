@@ -25,4 +25,10 @@ public class AulaService extends BaseService<Aula, AulaDTO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateData(Aula newObj, Aula obj) {
+		// TODO Auto-generated method stub
+		
+	}
 }

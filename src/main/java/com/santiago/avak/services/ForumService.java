@@ -25,4 +25,10 @@ public class ForumService extends BaseService<Forum, ForumDTO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateData(Forum newObj, Forum obj) {
+		// TODO Auto-generated method stub
+		
+	}
 }

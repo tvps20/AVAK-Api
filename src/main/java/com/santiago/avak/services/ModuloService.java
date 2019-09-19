@@ -25,4 +25,10 @@ public class ModuloService extends BaseService<Modulo, ModuloDTO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateData(Modulo newObj, Modulo obj) {
+		// TODO Auto-generated method stub
+		
+	}
 }
