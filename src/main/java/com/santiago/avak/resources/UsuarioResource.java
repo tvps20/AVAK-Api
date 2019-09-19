@@ -2,7 +2,6 @@ package com.santiago.avak.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -39,14 +38,14 @@ public class UsuarioResource {
 	}
 	
 	@GetMapping("/page")
-	public ResponseEntity<Page<UsuarioDTO>> findPage(
+	public ResponseEntity<Page<Usuario>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, 
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Usuario> list = service.findPage(page, linesPerPage, direction, orderBy);
-		Page<UsuarioDTO> listDTO = list.map(obj -> new UsuarioDTO(obj));
-		return ResponseEntity.ok().body(listDTO);
+		//Page<UsuarioDTO> listDTO = list.map(obj -> new UsuarioDTO(obj));
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("/{id}")
