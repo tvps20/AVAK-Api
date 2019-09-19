@@ -32,4 +32,17 @@ public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 		newObj.setPassword(obj.getPassword());
 		newObj.setNome(obj.getNome());
 	}
+	
+	 /**
+     * Executa um cast do objeto repositorio generico da super classe para o tipo especifico do servico
+     *
+     * @return Repositorio especifico do servico
+     */
+    private UsuarioRepository getRepository() {
+        return (UsuarioRepository) this.repository;
+    }
+	
+	public Usuario findByEmail(String email) {
+		return this.getRepository().findByEmail(email);
+	}
 }
