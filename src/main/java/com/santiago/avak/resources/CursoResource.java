@@ -48,8 +48,8 @@ public class CursoResource {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Curso> findById(@PathVariable Long id){
-		Curso curso = this.service.findById(id);
-		return ResponseEntity.ok().body(curso);
+		Curso obj = this.service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping

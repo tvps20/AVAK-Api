@@ -1,6 +1,7 @@
 package com.santiago.avak.dtos;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -14,6 +15,8 @@ public class CursoDTO extends BaseDTO {
 	private String nome;
 	
 	private String descricao;
+	
+	@NotNull(message = "Deve ser passando o id de um usuário")
 	private Long professorId;
 	
 	// Construtores

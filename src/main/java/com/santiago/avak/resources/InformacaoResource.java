@@ -19,52 +19,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.santiago.avak.domain.Usuario;
-import com.santiago.avak.dtos.UsuarioDTO;
-import com.santiago.avak.services.UsuarioService;
+import com.santiago.avak.domain.Informacao;
+import com.santiago.avak.dtos.InformacaoDTO;
+import com.santiago.avak.services.InformacaoService;
 
 @RestController
-@RequestMapping("/usuarios")
-public class UsuarioResource {
+@RequestMapping("/informacoes")
+public class InformacaoResource {
 	
 	@Autowired
-	private UsuarioService service;
+	private InformacaoService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> findAll() {
-		List<Usuario> list = service.findAll();
-		//List<UsuarioDTO> listDTO = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(list);
+	public ResponseEntity<List<Informacao>> findAll() {
+		return ResponseEntity.ok().body(service.findAll());
 	}
 	
 	@GetMapping("/page")
-	public ResponseEntity<Page<Usuario>> findPage(
+	public ResponseEntity<Page<InformacaoDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, 
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-		Page<Usuario> list = service.findPage(page, linesPerPage, direction, orderBy);
-		//Page<UsuarioDTO> listDTO = list.map(obj -> new UsuarioDTO(obj));
-		return ResponseEntity.ok().body(list);
+		Page<Informacao> list = service.findPage(page, linesPerPage, direction, orderBy);
+		Page<InformacaoDTO> listDTO = list.map(obj -> new InformacaoDTO(obj));
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable Long id){
-		Usuario obj = this.service.findById(id);
+	public ResponseEntity<Informacao> findById(@PathVariable Long id){
+		Informacao obj = this.service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO objDTO){
-		Usuario obj = service.fromDTO(objDTO);
+	public ResponseEntity<Void> insert(@Valid @RequestBody InformacaoDTO objDTO){
+		Informacao obj = service.fromDTO(objDTO);
 		obj = this.service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDTO, @PathVariable Long id){
-		Usuario obj = service.fromDTO(objDTO);
+	public ResponseEntity<Void> update(@Valid @RequestBody InformacaoDTO objDTO, @PathVariable Long id){
+		Informacao obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		obj = this.service.update(obj);
 		return ResponseEntity.noContent().build();
