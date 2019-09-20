@@ -69,4 +69,9 @@ public class Modulo extends AbstractEntity{
 	public void setAulas(List<Aula> aulas) {
 		this.aulas = aulas;
 	}
+	
+	// Métodos Auxiliares
+	public Integer getQtdAulas() {
+		return this.aulas.size();
+	}
 }
