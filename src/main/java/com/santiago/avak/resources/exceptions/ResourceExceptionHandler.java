@@ -17,35 +17,35 @@ import com.santiago.avak.services.exceptions.ObjectNotFoundException;
 public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<StantardError> objectNotFound(ObjectNotFoundException ex, HttpServletRequest request){
+	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException ex, HttpServletRequest request){
 		
-		StantardError error = new StantardError(HttpStatus.NOT_FOUND.value(), ex.getMessage(), System.currentTimeMillis());
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Not found", ex.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 	
 	@ExceptionHandler(DataIntegrityException.class)
-	public ResponseEntity<StantardError> dataIntegrity(DataIntegrityException ex, HttpServletRequest request){
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException ex, HttpServletRequest request){
 		
-		StantardError error = new StantardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Data integrity", ex.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 	
 	@ExceptionHandler(JsonMappingException.class)
-	public ResponseEntity<StantardError> illegalEnum(JsonMappingException ex, HttpServletRequest request){
+	public ResponseEntity<StandardError> illegalEnum(JsonMappingException ex, HttpServletRequest request){
 		
-		StantardError error = new StantardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "JsonMapping", ex.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StantardError> dataIntegrity(MethodArgumentNotValidException ex, HttpServletRequest request){
+	public ResponseEntity<StandardError> dataIntegrity(MethodArgumentNotValidException ex, HttpServletRequest request){
 		
-		ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de validação", System.currentTimeMillis());
+		ValidationError error = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(), "Validation error", ex.getMessage(), request.getRequestURI());
 		
 		for(FieldError x : ex.getBindingResult().getFieldErrors()) {
 			error.addErro(x.getField(), x.getDefaultMessage());
 		}
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
 	}
 }
