@@ -1,5 +1,7 @@
 package com.santiago.avak.domain.enuns;
 
+import com.santiago.avak.domain.exceptions.IllegalEnumException;
+
 public enum TipoUsuario {
 	
 	ALUNO(1, "Aluno"),
@@ -31,6 +33,18 @@ public enum TipoUsuario {
 			}
 		}
 		
-		throw new IllegalArgumentException("Id inválido: " + cod);
+		throw new IllegalEnumException("Id inválido: " + cod);
+	}
+	
+	public static TipoUsuario toEnum(String descricao) {
+		if(descricao == null) {	return null; }
+		
+		for(TipoUsuario x: TipoUsuario.values()) {
+			if(descricao.equals(x.toString())) {
+				return x;
+			}
+		}
+		
+		throw new IllegalEnumException(descricao + "inválido. Não atende aos tipos [ALUNO, TUTOR, PROFESSOR]");
 	}
 }

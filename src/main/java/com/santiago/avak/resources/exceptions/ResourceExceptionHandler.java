@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.santiago.avak.services.exceptions.DataIntegrityException;
 import com.santiago.avak.services.exceptions.ObjectNotFoundException;
 
@@ -24,6 +25,13 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(DataIntegrityException.class)
 	public ResponseEntity<StantardError> dataIntegrity(DataIntegrityException ex, HttpServletRequest request){
+		
+		StantardError error = new StantardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(JsonMappingException.class)
+	public ResponseEntity<StantardError> illegalEnum(JsonMappingException ex, HttpServletRequest request){
 		
 		StantardError error = new StantardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
