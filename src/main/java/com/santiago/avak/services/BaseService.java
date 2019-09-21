@@ -98,7 +98,7 @@ public abstract class BaseService<T extends AbstractEntity, K extends BaseDTO> i
     	try {
     		this.repository.deleteById(id);
     	}catch (DataIntegrityViolationException ex) {
-    		throw new DataIntegrityException("Não é possível excluir um objeto que possui entidades relacionadas.");
+    		throw new DataIntegrityException("Não é possível excluir um objeto que possui entidades relacionadas. Tipo: " +  this.getTClass().getName());
 		} 
     }
     

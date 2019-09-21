@@ -36,7 +36,6 @@ public class ForumDTO extends BaseDTO {
 		this.aulaId = aulaId;
 	}
 	
-	
 	public ForumDTO(Forum obj) {
 		super(obj.getId());
 		this.mensagem = obj.getMensagem();

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.santiago.avak.domain.exceptions.IllegalEnumException;
 import com.santiago.avak.services.exceptions.DataIntegrityException;
 import com.santiago.avak.services.exceptions.ObjectNotFoundException;
+import com.santiago.avak.services.exceptions.ProfessorException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -31,9 +33,23 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(JsonMappingException.class)
-	public ResponseEntity<StandardError> illegalEnum(JsonMappingException ex, HttpServletRequest request){
+	public ResponseEntity<StandardError> jasonMapping(JsonMappingException ex, HttpServletRequest request){
 		
-		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "JsonMapping", ex.getMessage(), request.getRequestURI());
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Json mapping", ex.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(IllegalEnumException.class)
+	public ResponseEntity<StandardError> illegalEnum(IllegalEnumException ex, HttpServletRequest request){
+		
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Illegal Enum ", ex.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(ProfessorException.class)
+	public ResponseEntity<StandardError> illegalProfessor(ProfessorException ex, HttpServletRequest request){
+		
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Illegal professor", ex.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 	
