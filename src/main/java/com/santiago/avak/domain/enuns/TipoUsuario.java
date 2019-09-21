@@ -45,6 +45,6 @@ public enum TipoUsuario {
 			}
 		}
 		
-		throw new IllegalEnumException(descricao + "inválido. Não atende aos tipos [ALUNO, TUTOR, PROFESSOR]");
+		throw new IllegalEnumException("Tipo [" + descricao + "] inválido. Não atende aos tipos [ALUNO, TUTOR, PROFESSOR]");
 	}
 }
