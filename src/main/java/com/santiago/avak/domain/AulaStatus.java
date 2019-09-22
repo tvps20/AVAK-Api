@@ -16,7 +16,7 @@ public class AulaStatus extends AbstractEntity {
 
 	private boolean completo;
 	private String resultado;
-	private Integer qtlCertas;
+	private Integer qtdCertas;
 
 	@ManyToOne
 	@JoinColumn(name = "inscricao_id")
@@ -28,12 +28,12 @@ public class AulaStatus extends AbstractEntity {
 		super();
 	}
 
-	public AulaStatus(Long id, Aula aula, boolean completo, String resultado, Integer qtlCertas, Inscricao inscricao) {
+	public AulaStatus(Long id, Aula aula, boolean completo, String resultado, Integer qtdCertas, Inscricao inscricao) {
 		super(id);
 		this.aula = aula;
 		this.completo = completo;
 		this.resultado = resultado;
-		this.qtlCertas = qtlCertas;
+		this.qtdCertas = qtdCertas;
 		this.inscricao = inscricao;
 	}
 
@@ -62,12 +62,12 @@ public class AulaStatus extends AbstractEntity {
 		this.resultado = resultado;
 	}
 
-	public Integer getQtlCertas() {
-		return qtlCertas;
+	public Integer getQtdCertas() {
+		return qtdCertas;
 	}
 
-	public void setQtlCertas(Integer qtlCertas) {
-		this.qtlCertas = qtlCertas;
+	public void setQtdCertas(Integer qtdCertas) {
+		this.qtdCertas = qtdCertas;
 	}
 
 	public Inscricao getInscricao() {
