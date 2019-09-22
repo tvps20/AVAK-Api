@@ -3,6 +3,7 @@ package com.santiago.avak.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.santiago.avak.domain.Aula;
@@ -27,6 +28,8 @@ import com.santiago.avak.repositories.UsuarioRepository;
 public class DBService {
 	
 	@Autowired
+	private BCryptPasswordEncoder crypt;
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private CursoRepository cursoRepository;
@@ -44,12 +47,12 @@ public class DBService {
 	private AulaStatusRepository aulaStatusRepository;
 	
 	public void instantiateTestDatabase() {
-		Usuario user1 = new Usuario(null, "thiago@email.com", "Thiago", "123");
-		Usuario user2 = new Usuario(null, "filipe@email.com", "Filipe", "123");
-		Usuario user3 = new Usuario(null, "jose@email.com", "Jose", "123");
-		Usuario user4 = new Usuario(null, "maria@email.com", "Maria", "123");
-		Usuario user5 = new Usuario(null, "pedro@email.com", "Pedro", "123");
-		Usuario user6 = new Usuario(null, "ana@email.com", "Ana", "123");
+		Usuario user1 = new Usuario(null, "thiago@email.com", "Thiago", this.crypt.encode("123"));
+		Usuario user2 = new Usuario(null, "filipe@email.com", "Filipe", this.crypt.encode("123"));
+		Usuario user3 = new Usuario(null, "jose@email.com", "Jose", this.crypt.encode("123"));
+		Usuario user4 = new Usuario(null, "maria@email.com", "Maria", this.crypt.encode("123"));
+		Usuario user5 = new Usuario(null, "pedro@email.com", "Pedro", this.crypt.encode("123"));
+		Usuario user6 = new Usuario(null, "ana@email.com", "Ana", this.crypt.encode("123"));
 		
 		Curso curso1 = new Curso(null, "Banco de dados", "Curso de banco de dados", user1);
 		Curso curso2 = new Curso(null, "Spring boot", "Curso de Spring Boot", user1);

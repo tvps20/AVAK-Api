@@ -1,6 +1,7 @@
 package com.santiago.avak.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.santiago.avak.domain.Usuario;
@@ -10,6 +11,9 @@ import com.santiago.avak.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
+	
+	@Autowired
+	private BCryptPasswordEncoder crypt;
 	
 	@Autowired	
 	public UsuarioService(UsuarioRepository repository) {
@@ -23,7 +27,7 @@ public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 
 	@Override
 	public Usuario fromDTO(UsuarioDTO dto) {
-		return new Usuario(dto.getId(), dto.getEmail(), dto.getNome(), dto.getPassword());
+		return new Usuario(dto.getId(), dto.getEmail(), dto.getNome(), this.crypt.encode(dto.getPassword()));
 	}
 
 	@Override
