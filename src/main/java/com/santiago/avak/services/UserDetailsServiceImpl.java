@@ -7,17 +7,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.santiago.avak.domain.Usuario;
+import com.santiago.avak.repositories.UsuarioRepository;
 import com.santiago.avak.security.UserSS;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UsuarioService usuarioService; 
+	private UsuarioRepository usuarioRepository; 
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Usuario user = this.usuarioService.findByEmail(email);
+		Usuario user = this.usuarioRepository.findByEmail(email);
 		
 		if(user == null) {
 			throw new UsernameNotFoundException(email);
