@@ -24,6 +24,7 @@ public abstract class AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	// TODO: Data errada
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@CreationTimestamp

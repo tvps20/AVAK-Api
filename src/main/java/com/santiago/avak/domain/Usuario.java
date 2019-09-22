@@ -1,12 +1,19 @@
 package com.santiago.avak.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.santiago.avak.domain.enuns.TipoPerfil;
 
 @Entity
 public class Usuario extends AbstractEntity {
@@ -18,6 +25,10 @@ public class Usuario extends AbstractEntity {
 	@JsonIgnore
 	private String password;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "professor")
 	private List<Curso> cursos = new ArrayList<>();
@@ -27,13 +38,17 @@ public class Usuario extends AbstractEntity {
 	private List<Inscricao> inscricoes = new ArrayList<>();
 	
 	// Construtores
-	public Usuario() { super(); }
+	public Usuario() { 
+		super(); 
+		this.addPerfil(TipoPerfil.USUARIO);
+	}
 	
 	public Usuario(Long id, String email, String nome, String password) {
 		super(id);
 		this.email = email;
 		this.password = password;
 		this.nome = nome;
+		this.addPerfil(TipoPerfil.USUARIO);
 	}
 
 	// Gets e Sets
@@ -51,6 +66,14 @@ public class Usuario extends AbstractEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Set<TipoPerfil> getPerfis(){
+		return this.perfis.stream().map(x -> TipoPerfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(TipoPerfil perfil) {
+		this.perfis.add(perfil.getCod());
 	}
 
 	public String getNome() {

@@ -14,6 +14,7 @@ import com.santiago.avak.domain.Informacao;
 import com.santiago.avak.domain.Inscricao;
 import com.santiago.avak.domain.Modulo;
 import com.santiago.avak.domain.Usuario;
+import com.santiago.avak.domain.enuns.TipoPerfil;
 import com.santiago.avak.domain.enuns.TipoUsuario;
 import com.santiago.avak.repositories.AulaRepository;
 import com.santiago.avak.repositories.AulaStatusRepository;
@@ -50,9 +51,8 @@ public class DBService {
 		Usuario user1 = new Usuario(null, "thiago@email.com", "Thiago", this.crypt.encode("123"));
 		Usuario user2 = new Usuario(null, "filipe@email.com", "Filipe", this.crypt.encode("123"));
 		Usuario user3 = new Usuario(null, "jose@email.com", "Jose", this.crypt.encode("123"));
-		Usuario user4 = new Usuario(null, "maria@email.com", "Maria", this.crypt.encode("123"));
-		Usuario user5 = new Usuario(null, "pedro@email.com", "Pedro", this.crypt.encode("123"));
-		Usuario user6 = new Usuario(null, "ana@email.com", "Ana", this.crypt.encode("123"));
+		Usuario user4 = new Usuario(null, "admin@email.com", "Admin", this.crypt.encode("123"));
+		user4.addPerfil(TipoPerfil.ADMIN);
 		
 		Curso curso1 = new Curso(null, "Banco de dados", "Curso de banco de dados", user1);
 		Curso curso2 = new Curso(null, "Spring boot", "Curso de Spring Boot", user1);
@@ -95,7 +95,7 @@ public class DBService {
 		
 		insc2.getStatusAulas().addAll(Arrays.asList(aulaStatus1, aulaStatus2));
 		
-		this.usuarioRepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5, user6));
+		this.usuarioRepository.saveAll(Arrays.asList(user1, user2, user3, user4));
 		this.cursoRepository.saveAll(Arrays.asList(curso1, curso2));
 		this.informacaoRepository.saveAll(Arrays.asList(info1, info2, info3));
 		this.moduloRepository.saveAll(Arrays.asList(mod1, mod2, mod3));
