@@ -1,12 +1,19 @@
 package com.santiago.avak.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.santiago.avak.domain.Usuario;
+import com.santiago.avak.domain.enuns.TipoPerfil;
 import com.santiago.avak.dtos.UsuarioDTO;
 import com.santiago.avak.repositories.UsuarioRepository;
+import com.santiago.avak.security.UserSS;
+import com.santiago.avak.services.exceptions.AuthorizationException;
+import com.santiago.avak.services.exceptions.ObjectNotFoundException;
 
 
 @Service
@@ -29,6 +36,18 @@ public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 	public Usuario fromDTO(UsuarioDTO dto) {
 		return new Usuario(dto.getId(), dto.getEmail(), dto.getNome(), this.crypt.encode(dto.getPassword()));
 	}
+	
+    @Override
+    public Usuario findById(Long id) throws ObjectNotFoundException {
+    	UserSS user = this.authenticated();
+    	if(user == null || !user.hasRole(TipoPerfil.ADMIN) && !id.equals(user.getId())) {
+    		throw new AuthorizationException("Acesso negado");
+    	}
+    	
+    	Optional<Usuario> obj = this.repository.findById(id);
+    	return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " +  this.getTClass().getName()));
+    }
 
 	@Override
 	public void updateData(Usuario newObj, Usuario obj) {
@@ -48,5 +67,13 @@ public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 	
 	public Usuario findByEmail(String email) {
 		return this.getRepository().findByEmail(email);
+	}
+	
+	public static UserSS authenticated() {
+		try {
+			return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

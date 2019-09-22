@@ -71,4 +71,9 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	// Outros Métodos 
+	public boolean hasRole(TipoPerfil perfil) {
+		return this.getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
 }

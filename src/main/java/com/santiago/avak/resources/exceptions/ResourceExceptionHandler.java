@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.santiago.avak.domain.exceptions.IllegalEnumException;
+import com.santiago.avak.services.exceptions.AuthorizationException;
 import com.santiago.avak.services.exceptions.DataIntegrityException;
+import com.santiago.avak.services.exceptions.InscricaoException;
 import com.santiago.avak.services.exceptions.ObjectNotFoundException;
-import com.santiago.avak.services.exceptions.ProfessorException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -46,8 +47,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 	
-	@ExceptionHandler(ProfessorException.class)
-	public ResponseEntity<StandardError> illegalProfessor(ProfessorException ex, HttpServletRequest request){
+	@ExceptionHandler(InscricaoException.class)
+	public ResponseEntity<StandardError> illegalInscricao(InscricaoException ex, HttpServletRequest request){
 		
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Illegal professor", ex.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -63,5 +64,12 @@ public class ResourceExceptionHandler {
 		}
 		
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException ex, HttpServletRequest request){
+		
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Forbidden", ex.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
 }
