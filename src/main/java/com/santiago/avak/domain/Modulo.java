@@ -70,7 +70,7 @@ public class Modulo extends AbstractEntity{
 		this.aulas = aulas;
 	}
 	
-	// Métodos Auxiliares
+	// Outros Métodos
 	public Integer getQtdAulas() {
 		return this.aulas.size();
 	}
