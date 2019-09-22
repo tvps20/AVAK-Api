@@ -39,7 +39,7 @@ public class UsuarioService extends BaseService<Usuario, UsuarioDTO> {
 	
     @Override
     public Usuario findById(Long id) throws ObjectNotFoundException {
-    	UserSS user = this.authenticated();
+    	UserSS user = authenticated();
     	if(user == null || !user.hasRole(TipoPerfil.ADMIN) && !id.equals(user.getId())) {
     		throw new AuthorizationException("Acesso negado");
     	}
