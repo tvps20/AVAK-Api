@@ -35,6 +35,8 @@ public class ModuloDTO extends BaseDTO {
 		this.nome = obj.getNome();
 		this.descricao = obj.getDescricao();
 		this.cursoId = obj.getCurso().getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

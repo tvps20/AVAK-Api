@@ -38,6 +38,8 @@ public class UsuarioDTO extends BaseDTO {
 		super(obj.getId());
 		this.email = obj.getEmail();
 		this.nome = obj.getNome();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

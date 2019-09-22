@@ -41,6 +41,8 @@ public class AulaDTO extends BaseDTO {
 		this.video = obj.getVideo();
 		this.atividade = obj.getAtividade();
 		this.moduloId = obj.getModulo().getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

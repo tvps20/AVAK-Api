@@ -36,6 +36,8 @@ public class InscricaoDTO extends BaseDTO {
 		this.tipo = obj.getTipo();
 		this.alunoId = obj.getAluno().getId();
 		this.cursoId = obj.getCurso().getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

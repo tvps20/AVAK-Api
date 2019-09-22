@@ -42,6 +42,8 @@ public class ForumDTO extends BaseDTO {
 		this.tipo = obj.getTipo();
 		this.usuarioId = obj.getUsuario().getId();
 		this.aulaId = obj.getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

@@ -2,6 +2,7 @@ package com.santiago.avak.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -31,8 +32,10 @@ public class ForumResource {
 	private ForumService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Forum>> listar() {
-		return ResponseEntity.ok().body(service.findAll());
+	public ResponseEntity<List<ForumDTO>> listar() {
+		List<Forum> list = service.findAll();
+		List<ForumDTO> listDTO = list.stream().map(obj -> new ForumDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@GetMapping("/page")

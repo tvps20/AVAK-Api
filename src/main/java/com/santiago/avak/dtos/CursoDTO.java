@@ -36,6 +36,8 @@ public class CursoDTO extends BaseDTO {
 		this.nome = obj.getNome();
 		this.descricao = obj.getDescricao();
 		this.professorId = obj.getProfessor().getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

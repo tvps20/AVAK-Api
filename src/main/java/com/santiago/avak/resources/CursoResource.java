@@ -2,6 +2,7 @@ package com.santiago.avak.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -31,8 +32,10 @@ public class CursoResource {
 	private CursoService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Curso>> findAll() {
-		return ResponseEntity.ok().body(service.findAll());
+	public ResponseEntity<List<CursoDTO>> findAll() {
+		List<Curso> list = service.findAll();
+		List<CursoDTO> listDTO = list.stream().map(obj -> new CursoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@GetMapping("/page")

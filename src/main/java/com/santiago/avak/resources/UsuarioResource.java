@@ -33,7 +33,6 @@ public class UsuarioResource {
 	@GetMapping
 	public ResponseEntity<List<Usuario>> findAll() {
 		List<Usuario> list = service.findAll();
-		//List<UsuarioDTO> listDTO = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -44,7 +43,6 @@ public class UsuarioResource {
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Usuario> list = service.findPage(page, linesPerPage, direction, orderBy);
-		//Page<UsuarioDTO> listDTO = list.map(obj -> new UsuarioDTO(obj));
 		return ResponseEntity.ok().body(list);
 	}
 	

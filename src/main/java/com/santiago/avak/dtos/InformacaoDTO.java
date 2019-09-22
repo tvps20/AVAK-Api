@@ -32,6 +32,8 @@ public class InformacaoDTO extends BaseDTO {
 		super(obj.getId());
 		this.descricao = obj.getDescricao();
 		this.cursoId = obj.getCurso().getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets

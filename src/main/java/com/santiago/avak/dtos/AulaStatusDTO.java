@@ -38,6 +38,8 @@ public class AulaStatusDTO extends BaseDTO {
 		this.qtdCertas = obj.getQtdCertas();
 		this.aulaId = obj.getAula().getId();
 		this.inscricaoId = obj.getInscricao().getId();
+		this.setCreatedAt(obj.getCreatedAt());
+		this.setUpdatedAt(obj.getUpdatedAt());
 	}
 
 	// Gets e Sets
